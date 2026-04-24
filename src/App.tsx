@@ -50,17 +50,17 @@ interface GuestMessage {
 
 // --- Mock Data ---
 const PROFILE = {
-  name: "朱同學 (Pczhu)",
+  name: "卓同學 (Pczhuo)",
   age: 19,
   gender: "男性",
-  personality: "專注且富有耐心，在釣魚中磨練心志，在技術學習中追求極致。是一位熱愛解決問題的學習者。",
+  personality: "專注且富有耐心，在遊戲中磨練心志，在技術學習中追求極致。是一位熱愛解決問題的學習者。",
   career: "學習手操技術員，專研精密設備操作與維護流程，致力於提升操作精準度與穩定性。",
-  interests: "沉浸式垂釣、設備拆解研究、戶外露營、數據監控。",
+  interests: "沉浸式突圍、設備拆解研究、戶外露營、數據監控。",
   health: "體力充沛，經常參與戶外活動與耐力訓練，保持極佳的注意力和手部穩定性。",
   contact: {
-    email: "pczhu.cheater@guymail.com",
-    phone: "+886 987-131-996",
-    ig: "@pczhu_guy"
+    email: "pczhuo.cheater@guymail.com",
+    phone: "+886 987-131-142",
+    ig: "@pczhuo_guy"
   },
   // 使用男生插畫頭像作為占位，直到圖片生成額度恢復
   photo: "https://api.dicebear.com/7.x/avataaars/svg?seed=Felix&backgroundColor=ffdfbf"
@@ -70,7 +70,7 @@ const DETAIL_ITEMS: DetailItem[] = [
   {
     id: '1',
     category: 'interests',
-    title: '垂釣生活',
+    title: '遊戲生活',
     content: '在靜謐中尋找平穩與契機',
     icon: <Anchor className="w-5 h-5" />,
     color: 'bg-blue-100 text-blue-600'
