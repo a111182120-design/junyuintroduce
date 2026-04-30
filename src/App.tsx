@@ -52,7 +52,7 @@ interface GuestMessage {
 
 // --- Mock Data ---
 const PROFILE = {
-  name: "朱同學 (Pczhu)",
+  name: "卓同學 (Zhuo)",
   age: 19,
   gender: "男性",
   personality: "專注且富有耐心，在釣魚中磨練心志，在技術學習中追求極致。是一位熱愛解決問題的學習者。",
@@ -60,12 +60,12 @@ const PROFILE = {
   interests: "沉浸式垂釣、設備拆解研究、戶外露營、數據監控。",
   health: "體力充沛，經常參與戶外活動與耐力訓練，保持極佳的注意力和手部穩定性。",
   contact: {
-    email: "pczhu.cheater@guymail.com",
+    email: "zhuo.cheater@guymail.com",
     phone: "+886 987-131-996",
-    ig: "@pczhu_guy"
+    ig: "@zhuo_guy"
   },
-  // 使用男生插畫頭像作為占位，直到圖片生成額度恢復
-  photo: "https://api.dicebear.com/7.x/avataaars/svg?seed=Felix&backgroundColor=ffdfbf"
+  // 根據圖片生成的面部頭像 (因為圖像生成額度達到上限，使用 DiceBear 匹配圖片特徵：短黑髮、無眼鏡、深色上衣)
+  photo: "https://api.dicebear.com/7.x/avataaars/svg?seed=Zhuo2&clothes=graphicShirt&clothesColor=262e33&eyebrows=defaultNatural&eyes=default&facialHair=blank&top=shortHairShortFlat&hairColor=2c1b18&mouth=default&skinColor=edb98a&backgroundColor=ffdfbf"
 };
 
 const DETAIL_ITEMS: DetailItem[] = [
@@ -95,7 +95,7 @@ const DETAIL_ITEMS: DetailItem[] = [
     gallery: [
       { url: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=800&auto=format&fit=crop', desc: '峽谷溪流探秘' },
       { url: 'https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=800&auto=format&fit=crop', desc: '靜謐泳池時光' },
-      { url: 'https://videos.pexels.com/video-files/3044127/3044127-uhd_2560_1440_24fps.mp4', desc: '夜市美食巡禮', type: 'video' },
+      { url: 'https://upload.wikimedia.org/wikipedia/commons/9/97/East_Entrance_of_Raohe_Street_Night_Market_20060118_night.jpg', desc: '夜市美食巡禮', type: 'image' },
       { url: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=800&auto=format&fit=crop', desc: '壯麗海岸斷崖' }
     ]
   },
@@ -236,7 +236,7 @@ export default function App() {
             <div className="space-y-4">
               <div className="flex flex-col gap-1">
                 <div className="flex justify-between text-xs font-bold">
-                  <span>手操技術熟練度</span>
+                  <span>多益模擬測驗600分</span>
                   <span className="text-orange-500">75%</span>
                 </div>
                 <div className="h-2 w-full bg-orange-50 rounded-full overflow-hidden">
@@ -305,7 +305,13 @@ export default function App() {
                   {item.gallery && item.gallery.length > 0 && (
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8">
                       {item.gallery.map((img, idx) => (
-                        <div key={idx} className="relative group/img rounded-2xl overflow-hidden aspect-square border-2 border-orange-50 shadow-sm">
+                        <a 
+                          key={idx} 
+                          href={img.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="relative group/img rounded-2xl overflow-hidden aspect-square border-2 border-orange-50 shadow-sm block"
+                        >
                            {img.type === 'video' ? (
                              <video 
                                src={img.url} 
@@ -321,7 +327,7 @@ export default function App() {
                            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-3 pt-6 opacity-0 group-hover/img:opacity-100 transition-opacity">
                               <p className="text-white text-xs font-bold tracking-wider">{img.desc}</p>
                            </div>
-                        </div>
+                        </a>
                       ))}
                     </div>
                   )}
