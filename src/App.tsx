@@ -64,8 +64,8 @@ const PROFILE = {
     phone: "+886 987-131-996",
     ig: "@zhuo_guy"
   },
-  // 根據圖片生成的面部頭像 (因為圖像生成額度達到上限，使用 DiceBear 匹配圖片特徵：短黑髮、無眼鏡、深色上衣)
-  photo: "https://api.dicebear.com/7.x/avataaars/svg?seed=Zhuo2&clothes=graphicShirt&clothesColor=262e33&eyebrows=defaultNatural&eyes=default&facialHair=blank&top=shortHairShortFlat&hairColor=2c1b18&mouth=default&skinColor=edb98a&backgroundColor=ffdfbf"
+  // 使用男生插畫頭像作為占位，直到圖片生成額度恢復
+  photo: "https://api.dicebear.com/7.x/avataaars/svg?seed=Felix&backgroundColor=ffdfbf"
 };
 
 const DETAIL_ITEMS: DetailItem[] = [
