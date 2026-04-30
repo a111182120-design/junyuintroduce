@@ -55,9 +55,9 @@ const PROFILE = {
   name: "卓同學 (Zhuo)",
   age: 19,
   gender: "男性",
-  personality: "專注且富有耐心，在釣魚中磨練心志，在技術學習中追求極致。是一位熱愛解決問題的學習者。",
+  personality: "專注且富有耐心，在遊戲中磨練心志，在技術學習中追求極致。是一位熱愛解決問題的學習者。",
   career: "學習手操技術員，專研精密設備操作與維護流程，致力於提升操作精準度與穩定性。",
-  interests: "沉浸式垂釣、設備拆解研究、戶外露營、數據監控。",
+  interests: "沉浸式遊戲、設備拆解研究、戶外探索、數據監控。",
   health: "體力充沛，經常參與戶外活動與耐力訓練，保持極佳的注意力和手部穩定性。",
   contact: {
     email: "zhuo.cheater@guymail.com",
@@ -72,7 +72,7 @@ const DETAIL_ITEMS: DetailItem[] = [
   {
     id: '1',
     category: 'interests',
-    title: '垂釣生活',
+    title: '遊戲生活',
     content: '在靜謐中尋找平穩與契機',
     icon: <Anchor className="w-5 h-5" />,
     color: 'bg-blue-100 text-blue-600'
@@ -93,10 +93,10 @@ const DETAIL_ITEMS: DetailItem[] = [
     icon: <MapPin className="w-5 h-5" />,
     color: 'bg-emerald-100 text-emerald-600',
     gallery: [
-      { url: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=800&auto=format&fit=crop', desc: '峽谷溪流探秘' },
-      { url: 'https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=800&auto=format&fit=crop', desc: '靜謐泳池時光' },
-      { url: 'https://upload.wikimedia.org/wikipedia/commons/9/97/East_Entrance_of_Raohe_Street_Night_Market_20060118_night.jpg', desc: '夜市美食巡禮', type: 'image' },
-      { url: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=800&auto=format&fit=crop', desc: '壯麗海岸斷崖' }
+      { url: 'https://drive.google.com/file/d/1TeHEktsN-mHJ5hB2wnxPFkZI8HPjP5C8/view?usp=drive_link', desc: '峽谷溪流探秘' },
+      { url: 'https://drive.google.com/file/d/1VKThcvg8Ki8GE7RMn53qzI5936iIgvOv/view?usp=drive_link', desc: '靜謐泳池時光' },
+      { url: 'https://drive.google.com/file/d/1kiifZyASGAWwFIXP8PNqC-uXYccvX7OL/view?usp=drive_link', desc: '夜市美食巡禮', type: 'image' },
+      { url: 'https://drive.google.com/file/d/1TNuL8ENJ9RHNVirk-IioPYW91ULouHFm/view?usp=drive_link', desc: '壯麗海岸斷崖' }
     ]
   },
   {
