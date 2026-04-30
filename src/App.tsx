@@ -29,6 +29,7 @@ interface DetailItem {
   content: string;
   icon: React.ReactNode;
   color: string;
+  gallery?: { url: string; desc: string; type?: 'video' | 'image'; }[];
 }
 
 interface PortfolioItem {
@@ -38,6 +39,7 @@ interface PortfolioItem {
   link: string;
   github: string;
   tags: string[];
+  imageUrl: string;
 }
 
 interface GuestMessage {
@@ -50,17 +52,17 @@ interface GuestMessage {
 
 // --- Mock Data ---
 const PROFILE = {
-  name: "卓同學 (Pczhuo)",
+  name: "朱同學 (Pczhu)",
   age: 19,
   gender: "男性",
-  personality: "專注且富有耐心，在遊戲中磨練心志，在技術學習中追求極致。是一位熱愛解決問題的學習者。",
+  personality: "專注且富有耐心，在釣魚中磨練心志，在技術學習中追求極致。是一位熱愛解決問題的學習者。",
   career: "學習手操技術員，專研精密設備操作與維護流程，致力於提升操作精準度與穩定性。",
-  interests: "沉浸式突圍、設備拆解研究、戶外露營、數據監控。",
+  interests: "沉浸式垂釣、設備拆解研究、戶外露營、數據監控。",
   health: "體力充沛，經常參與戶外活動與耐力訓練，保持極佳的注意力和手部穩定性。",
   contact: {
-    email: "pczhuo.cheater@guymail.com",
-    phone: "+886 987-131-142",
-    ig: "@pczhuo_guy"
+    email: "pczhu.cheater@guymail.com",
+    phone: "+886 987-131-996",
+    ig: "@pczhu_guy"
   },
   // 使用男生插畫頭像作為占位，直到圖片生成額度恢復
   photo: "https://api.dicebear.com/7.x/avataaars/svg?seed=Felix&backgroundColor=ffdfbf"
@@ -70,7 +72,7 @@ const DETAIL_ITEMS: DetailItem[] = [
   {
     id: '1',
     category: 'interests',
-    title: '遊戲生活',
+    title: '垂釣生活',
     content: '在靜謐中尋找平穩與契機',
     icon: <Anchor className="w-5 h-5" />,
     color: 'bg-blue-100 text-blue-600'
@@ -89,7 +91,13 @@ const DETAIL_ITEMS: DetailItem[] = [
     title: '戶外探險',
     content: '享受自然的呼吸與挑戰',
     icon: <MapPin className="w-5 h-5" />,
-    color: 'bg-emerald-100 text-emerald-600'
+    color: 'bg-emerald-100 text-emerald-600',
+    gallery: [
+      { url: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=800&auto=format&fit=crop', desc: '峽谷溪流探秘' },
+      { url: 'https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=800&auto=format&fit=crop', desc: '靜謐泳池時光' },
+      { url: 'https://videos.pexels.com/video-files/3044127/3044127-uhd_2560_1440_24fps.mp4', desc: '夜市美食巡禮', type: 'video' },
+      { url: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=800&auto=format&fit=crop', desc: '壯麗海岸斷崖' }
+    ]
   },
   {
     id: '4',
@@ -108,7 +116,8 @@ const PORTFOLIO: PortfolioItem[] = [
     description: '使用 Python 撰寫的輔助工具，用於自動記錄設備運行的即時參數，大幅減少人工誤差。',
     link: '#',
     github: 'https://github.com',
-    tags: ['Python', 'Automation']
+    tags: ['Python', 'Automation'],
+    imageUrl: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800&auto=format&fit=crop'
   },
   {
     id: 'p2',
@@ -116,7 +125,8 @@ const PORTFOLIO: PortfolioItem[] = [
     description: '整理並設計了針對特定型號設備的數位化維護流程，結合圖文說明提升教學效率。',
     link: '#',
     github: 'https://github.com',
-    tags: ['Technical Writing', 'Design']
+    tags: ['Technical Writing', 'Design'],
+    imageUrl: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=800&auto=format&fit=crop'
   }
 ];
 
@@ -180,15 +190,15 @@ export default function App() {
           className="lg:col-span-4 flex flex-col gap-6 lg:sticky lg:top-8"
         >
           <div className="bg-white rounded-[40px] p-8 card-shadow border border-orange-50 flex flex-col items-center text-center">
-            <div className="relative mb-6">
+            <div className="relative mb-6 inline-block">
               <div className="absolute inset-0 rounded-full bg-orange-100 blur-2xl opacity-40 animate-pulse" />
               <img 
                 src={PROFILE.photo} 
                 alt={PROFILE.name}
                 referrerPolicy="no-referrer"
-                className="relative w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg mx-auto"
+                className="relative w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg"
               />
-              <div className="absolute -bottom-2 -right-2 bg-orange-500 text-white p-2 rounded-xl shadow-lg">
+              <div className="absolute bottom-0 right-0 translate-x-1/4 translate-y-1/4 bg-orange-500 text-white p-2 rounded-full shadow-lg border-[3px] border-white">
                 <Anchor className="w-5 h-5" />
               </div>
             </div>
@@ -284,13 +294,37 @@ export default function App() {
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
-                  className="bg-white p-8 rounded-[32px] border border-orange-50 card-shadow group hover:border-orange-200 transition-colors"
+                  className={`bg-white p-8 rounded-[32px] border border-orange-50 card-shadow group hover:border-orange-200 transition-colors flex flex-col ${item.gallery && item.gallery.length > 0 ? 'sm:col-span-2' : ''}`}
                 >
                   <div className={`w-12 h-12 rounded-2xl ${item.color} flex items-center justify-center mb-6 transition-transform group-hover:scale-110`}>
                     {item.icon}
                   </div>
                   <div className="text-gray-400 text-[10px] uppercase tracking-widest font-bold mb-1">{item.title}</div>
-                  <p className="text-xl font-bold text-gray-800">{item.content}</p>
+                  <p className="text-xl font-bold text-gray-800 flex-grow">{item.content}</p>
+                  
+                  {item.gallery && item.gallery.length > 0 && (
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8">
+                      {item.gallery.map((img, idx) => (
+                        <div key={idx} className="relative group/img rounded-2xl overflow-hidden aspect-square border-2 border-orange-50 shadow-sm">
+                           {img.type === 'video' ? (
+                             <video 
+                               src={img.url} 
+                               className="w-full h-full object-cover group-hover/img:scale-110 transition-transform duration-500"
+                               autoPlay 
+                               loop 
+                               muted 
+                               playsInline
+                             />
+                           ) : (
+                             <img src={img.url} alt={img.desc} className="w-full h-full object-cover group-hover/img:scale-110 transition-transform duration-500" />
+                           )}
+                           <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-3 pt-6 opacity-0 group-hover/img:opacity-100 transition-opacity">
+                              <p className="text-white text-xs font-bold tracking-wider">{img.desc}</p>
+                           </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </motion.div>
               ))}
             </AnimatePresence>
@@ -303,19 +337,28 @@ export default function App() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {PORTFOLIO.map((project) => (
-                <div key={project.id} className="bg-white rounded-[32px] p-8 border border-orange-50 card-shadow flex flex-col h-full group">
-                  <div className="flex justify-between items-start mb-4">
-                    <h3 className="text-lg font-bold text-gray-800 group-hover:text-orange-600 transition-colors">{project.title}</h3>
-                    <div className="flex gap-2">
-                       <a href={project.github} target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-gray-100 rounded-full transition-colors text-gray-500"><Github className="w-4 h-4" /></a>
-                       <a href={project.link} target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-gray-100 rounded-full transition-colors text-gray-500"><ExternalLink className="w-4 h-4" /></a>
-                    </div>
+                <div key={project.id} className="bg-white rounded-[32px] overflow-hidden border border-orange-50 card-shadow flex flex-col h-full group">
+                  <div className="h-48 w-full overflow-hidden">
+                    <img 
+                      src={project.imageUrl} 
+                      alt={project.title} 
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
                   </div>
-                  <p className="text-gray-600 text-sm leading-relaxed mb-6 flex-grow">{project.description}</p>
-                  <div className="flex flex-wrap gap-2">
-                    {project.tags.map(tag => (
-                      <span key={tag} className="px-2 py-0.5 bg-gray-50 text-[10px] font-bold text-gray-400 rounded-md uppercase tracking-wider">{tag}</span>
-                    ))}
+                  <div className="p-8 flex flex-col flex-grow">
+                    <div className="flex justify-between items-start mb-4">
+                      <h3 className="text-lg font-bold text-gray-800 group-hover:text-orange-600 transition-colors">{project.title}</h3>
+                      <div className="flex gap-2">
+                         <a href={project.github} target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-gray-100 rounded-full transition-colors text-gray-500"><Github className="w-4 h-4" /></a>
+                         <a href={project.link} target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-gray-100 rounded-full transition-colors text-gray-500"><ExternalLink className="w-4 h-4" /></a>
+                      </div>
+                    </div>
+                    <p className="text-gray-600 text-sm leading-relaxed mb-6 flex-grow">{project.description}</p>
+                    <div className="flex flex-wrap gap-2">
+                      {project.tags.map(tag => (
+                        <span key={tag} className="px-2 py-0.5 bg-gray-50 text-[10px] font-bold text-gray-400 rounded-md uppercase tracking-wider">{tag}</span>
+                      ))}
+                    </div>
                   </div>
                 </div>
               ))}
