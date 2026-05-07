@@ -77,7 +77,7 @@ const PROFILE = {
     ig: "@zhuo_guy"
   },
   // 使用上傳的圖片作為頭像
-  photo: "/1000002926.jpg"
+  photo: new URL('./assets/images/1000002926.jpg', import.meta.url).href
 };
 
 const DETAIL_ITEMS: DetailItem[] = [
@@ -89,10 +89,10 @@ const DETAIL_ITEMS: DetailItem[] = [
     icon: <Anchor className="w-5 h-5" />,
     color: 'bg-blue-100 text-blue-600',
     gallery: [
-      { url: '/video1.mp4', desc: 'Establishing Shot 1', type: 'video' },
-      { url: '/video2.mp4', desc: 'Establishing Shot 2', type: 'video' },
-      { url: '/video3.mp4', desc: 'Establishing Shot 3', type: 'video' },
-      { url: '/video4.mp4', desc: 'Sunrise at Taroko', type: 'video' }
+      { url: new URL('./assets/images/video1.mp4', import.meta.url).href, desc: 'Establishing Shot 1', type: 'video' },
+      { url: new URL('./assets/images/video2.mp4', import.meta.url).href, desc: 'Establishing Shot 2', type: 'video' },
+      { url: new URL('./assets/images/video3.mp4', import.meta.url).href, desc: 'Establishing Shot 3', type: 'video' },
+      { url: new URL('./assets/images/video4.mp4', import.meta.url).href, desc: 'Sunrise at Taroko', type: 'video' }
     ]
   },
   {
@@ -111,10 +111,10 @@ const DETAIL_ITEMS: DetailItem[] = [
     icon: <MapPin className="w-5 h-5" />,
     color: 'bg-emerald-100 text-emerald-600',
     gallery: [
-      { url: '/file1.pdf', desc: '4天3夜自由行攻略', type: 'pdf' },
-      { url: '/file2.pdf', desc: '清明連假的靜心手札・宜蘭與花蓮', type: 'pdf' },
-      { url: '/file3.pdf', desc: '東海岸山海避世之旅', type: 'pdf' },
-      { url: '/file4.pdf', desc: '清明連假旅遊 宜蘭 · 花蓮', type: 'pdf' }
+      { url: new URL('./assets/images/file1.pdf', import.meta.url).href, desc: '4天3夜自由行攻略', type: 'pdf' },
+      { url: new URL('./assets/images/file2.pdf', import.meta.url).href, desc: '清明連假的靜心手札・宜蘭與花蓮', type: 'pdf' },
+      { url: new URL('./assets/images/file3.pdf', import.meta.url).href, desc: '東海岸山海避世之旅', type: 'pdf' },
+      { url: new URL('./assets/images/file4.pdf', import.meta.url).href, desc: '清明連假旅遊 宜蘭 · 花蓮', type: 'pdf' }
     ]
   },
   {
@@ -135,7 +135,7 @@ const PORTFOLIO: PortfolioItem[] = [
     link: 'https://studio.tripo3d.ai/3d-model/757f2a93-f942-4df3-a1bf-898d128d8584?invite_code=8ESPND',
     github: 'https://github.com',
     tags: ['Python', 'Automation'],
-    imageUrl: '/20260125_133158.jpg'
+    imageUrl: new URL('./assets/images/20260125_133158.jpg', import.meta.url).href
   },
   {
     id: 'p2',
