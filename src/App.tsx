@@ -28,7 +28,9 @@ import {
   ChevronRight,
   Edit2,
   Maximize,
-  Play
+  Play,
+  Volume2,
+  VolumeX
 } from 'lucide-react';
 
 // --- Types ---
@@ -64,7 +66,7 @@ interface GuestMessage {
 
 // --- Mock Data ---
 const PROFILE = {
-  name: "卓同學 (Zhuo)",
+  name: "卓納宇",
   age: 19,
   gender: "男性",
   personality: "專注且富有耐心，在學習中磨練心志，在技術學習中追求極致。是一位熱愛解決問題的學習者。",
@@ -72,7 +74,7 @@ const PROFILE = {
   interests: "沉浸式垂釣、設備拆解研究、戶外露營、數據監控。",
   health: "體力充沛，經常參與戶外活動與耐力訓練，保持極佳的注意力和手部穩定性。",
   contact: {
-    email: "zhuo.cheater@guymail.com",
+    email: "A111182120@nkust.edu.tw",
     phone: "+886 987-131-996",
     ig: "@zhuo_guy"
   },
@@ -131,20 +133,11 @@ const PORTFOLIO: PortfolioItem[] = [
   {
     id: 'p1',
     title: 'AI生成3D公仔',
-    description: '去屏東吃冰淇淋',
+    description: '吃冰淇淋',
     link: 'https://studio.tripo3d.ai/3d-model/757f2a93-f942-4df3-a1bf-898d128d8584?invite_code=8ESPND',
     github: 'https://github.com',
-    tags: ['Python', 'Automation'],
+    tags: [],
     imageUrl: new URL('./assets/images/20260125_133158.jpg', import.meta.url).href
-  },
-  {
-    id: 'p2',
-    title: '精密操作維護手冊',
-    description: '整理並設計了針對特定型號設備的數位化維護流程，結合圖文說明提升教學效率。',
-    link: '#',
-    github: 'https://github.com',
-    tags: ['Technical Writing', 'Design'],
-    imageUrl: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=800&auto=format&fit=crop'
   }
 ];
 
@@ -192,6 +185,42 @@ function PdfViewer({ url }: { url: string }) {
           </button>
         </div>
       )}
+    </div>
+  );
+}
+
+function GalleryVideo({ src, className }: { src: string; className?: string }) {
+  const [isMuted, setIsMuted] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const toggleMute = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (videoRef.current) {
+      const newMuted = !videoRef.current.muted;
+      videoRef.current.muted = newMuted;
+      setIsMuted(newMuted);
+    }
+  };
+
+  return (
+    <div className="relative w-full h-full">
+      <video
+        ref={videoRef}
+        src={src}
+        className={className}
+        autoPlay
+        loop
+        muted={isMuted}
+        playsInline
+      />
+      <button
+        type="button"
+        onClick={toggleMute}
+        className="absolute bottom-2 right-2 z-20 p-2 bg-black/60 hover:bg-black/80 text-white rounded-full transition-all flex items-center justify-center hover:scale-110 shadow-lg border border-white/10"
+        title={isMuted ? "播放聲音" : "靜音"}
+      >
+        {isMuted ? <VolumeX className="w-4 h-4 text-orange-400" /> : <Volume2 className="w-4 h-4 text-orange-400 animate-pulse" />}
+      </button>
     </div>
   );
 }
@@ -429,13 +458,9 @@ export default function App() {
                           className="relative group/img rounded-2xl overflow-hidden aspect-square border-2 border-orange-50 shadow-sm block bg-black"
                         >
                            {img.type === 'video' ? (
-                             <video 
+                             <GalleryVideo 
                                src={img.url} 
                                className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-500"
-                               autoPlay 
-                               loop 
-                               muted 
-                               playsInline
                              />
                            ) : img.type === 'pdf' ? (
                              <div className="w-full h-full flex items-center justify-center bg-gray-100 group-hover/img:scale-105 transition-transform duration-500">
@@ -547,8 +572,8 @@ export default function App() {
             </div>
           </section>
 
-          {/* Career & Health Summary */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Career Summary */}
+          <div className="grid grid-cols-1 gap-6">
             <div className="bg-white rounded-[32px] p-8 border border-orange-50 card-shadow">
               <div className="text-orange-500 font-bold mb-4 flex items-center gap-2 text-sm uppercase tracking-wider">
                 <Briefcase className="w-5 h-5" /> 證照
@@ -559,17 +584,6 @@ export default function App() {
                 <span>• 救生艇與救難艇操縱</span>
                 <span>• 人員求生</span>
               </p>
-            </div>
-            <div className="bg-rose-50 rounded-[32px] p-8 border border-rose-100">
-               <div className="text-rose-600 font-bold mb-4 uppercase text-[10px] tracking-widest">
-                  Health Status 健康狀況
-               </div>
-               <div className="flex items-center gap-3">
-                  <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse" />
-                  <span className="text-gray-800 text-sm font-bold italic tracking-tight leading-relaxed">
-                    {profile.health}
-                  </span>
-               </div>
             </div>
           </div>
 
