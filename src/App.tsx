@@ -82,6 +82,19 @@ const PROFILE = {
   photo: new URL('./assets/images/1000002926.jpg', import.meta.url).href
 };
 
+function getGoogleDriveEmbedUrl(url: string): string | null {
+  if (!url) return null;
+  const matchD = url.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
+  if (matchD && matchD[1]) {
+    return `https://drive.google.com/file/d/${matchD[1]}/preview`;
+  }
+  const matchId = url.match(/drive\.google\.com\/.*[?&]id=([a-zA-Z0-9_-]+)/);
+  if (matchId && matchId[1]) {
+    return `https://drive.google.com/file/d/${matchId[1]}/preview`;
+  }
+  return null;
+}
+
 const DETAIL_ITEMS: DetailItem[] = [
   {
     id: '1',
@@ -91,9 +104,9 @@ const DETAIL_ITEMS: DetailItem[] = [
     icon: <Anchor className="w-5 h-5" />,
     color: 'bg-blue-100 text-blue-600',
     gallery: [
-      { url: new URL('./assets/images/video1.mp4', import.meta.url).href, desc: 'Establishing Shot 1', type: 'video' },
-      { url: new URL('./assets/images/video2.mp4', import.meta.url).href, desc: 'Establishing Shot 2', type: 'video' },
-      { url: new URL('./assets/images/video3.mp4', import.meta.url).href, desc: 'Establishing Shot 3', type: 'video' },
+      { url: 'https://drive.google.com/file/d/16-Ligw3CDFepL02hBliTTsQJ1Uv_AMUw/view?usp=drive_link', desc: '精選航海實務影片', type: 'video' },
+      { url: new URL('./assets/images/video2.mp4', import.meta.url).href, desc: '生活短片 2', type: 'video' },
+      { url: new URL('./assets/images/video3.mp4', import.meta.url).href, desc: '生活短片 3', type: 'video' },
       { url: new URL('./assets/images/video4.mp4', import.meta.url).href, desc: 'Sunrise at Taroko', type: 'video' }
     ]
   },
@@ -201,6 +214,18 @@ function GalleryVideo({ src, className }: { src: string; className?: string }) {
       setIsMuted(newMuted);
     }
   };
+
+  const driveEmbed = getGoogleDriveEmbedUrl(src);
+  if (driveEmbed) {
+    return (
+      <iframe
+        src={driveEmbed}
+        className={`${className} border-0 pointer-events-auto w-full h-full`}
+        allow="autoplay; encrypted-media"
+        allowFullScreen
+      />
+    );
+  }
 
   return (
     <div className="relative w-full h-full">
@@ -750,14 +775,21 @@ export default function App() {
                </div>
                
                <div className="max-w-5xl w-full h-full flex flex-col items-center justify-center relative">
-                  {presentation.images[presentation.currentIndex]?.type === 'video' ? (
+                  {presentation.images[presentation.currentIndex]?.type === 'video' && !getGoogleDriveEmbedUrl(presentation.images[presentation.currentIndex]?.url || '') ? (
                     <video 
                       src={presentation.images[presentation.currentIndex]?.url} 
                       controls
                       autoPlay
                       className="max-h-[80vh] max-w-full object-contain rounded-lg shadow-2xl"
                     />
-                  ) : presentation.images[presentation.currentIndex]?.type === 'pdf' ? (
+                  ) : presentation.images[presentation.currentIndex]?.type === 'video' && getGoogleDriveEmbedUrl(presentation.images[presentation.currentIndex]?.url || '') ? (
+                     <iframe
+                       src={getGoogleDriveEmbedUrl(presentation.images[presentation.currentIndex]?.url || '')!}
+                       className="w-full max-w-4xl h-[70vh] rounded-lg shadow-2xl border-0 bg-black/40"
+                       allow="autoplay; encrypted-media; picture-in-picture"
+                       allowFullScreen
+                     />
+                   ) : presentation.images[presentation.currentIndex]?.type === 'pdf' ? (
                     <PdfViewer url={presentation.images[presentation.currentIndex]?.url} />
                   ) : (
                     <img 
